@@ -33,11 +33,9 @@ import xlrd
 import regex
 
 # set the file location; use double \\
-# home
-path_home = "Z:\\Documents\\dev\\RAND\\xlrd-test\\prolog.xls"
-# RAND test
-path_work_test = "\\\\data\\userdata$\\cfitzgerald\\Desktop\\dev\\xlrd-test\\prolog.xls"
-# RAND
+# work test
+path_work_test = "\\\\data\\userdata$\\cfitzgerald\\Desktop\\dev\\excel-mate\\prolog.xls"
+# work
 path_work = "\\\\data\\Proposal Log\\Proposal Log 1-1-14 - present.xls"
 # open the Excel file (.xls only)
 workbook = xlrd.open_workbook(path_work, formatting_info=True)
@@ -256,7 +254,7 @@ class CS:
         for index in self.cs_entries_index_main:
             self.cs_entry_notes.append(ve_column_t_main[index])
             #print(index)
-                
+
         return(self.cs_entry_notes)
 
     # DRAFT status/percentage methods     
@@ -276,7 +274,7 @@ class CS:
     def cs_entry_percentage_draft( self ):
         return(format_percentage.format((self.cs_entry_status_draft() / self.cs_entries())*100))
 
-    # need status/percentage methods 
+    # NEED status/percentage methods 
     def cs_entry_status_need( self ):
         self.count_need = 0  
         
@@ -355,20 +353,25 @@ class Team:
 #-----------------------------
 # tallies
 
-drafted_text = "\tto be drafted"
-needing_input_text = "\tneeding input"
-finalized_text = "\tto be finalized"
-uncategorized_text = "\tuncategorized"
+drafted_text = "to be drafted"
+needing_input_text = "needing input"
+finalized_text = "to be finalized"
+uncategorized_text = "uncategorized"
+tab = "\t"
 
 print("================================") 
-print("TOTAL:\t",
+
+print("TOTAL:",
+      tab,
       ve_count_column_q_main + ve_count_column_q_energy)
 
 print("--------------------------------")
 
-print("Proposal Log:\t",
+print("Regular:",
+      tab,
       ve_count_column_q_main)
-print("Energy Log:\t",
+print("Energy:",
+      tab,
       ve_count_column_q_energy)
 
 print("--------------------------------")
@@ -376,38 +379,42 @@ print("--------------------------------")
 print(format_double_digit.format(count_draft),
       "/",
       count_draft_percentage,
+      tab,
       drafted_text)
 print(format_double_digit.format(count_need),
       "/",
       count_need_percentage,
+      tab,
       needing_input_text)
 print(format_double_digit.format(count_final),
       "/",
       count_final_percentage,
+      tab,
       finalized_text)
 print(format_double_digit.format(count_misc),
       "/",
       count_misc_percentage,
+      tab,
       uncategorized_text)
 
 #-----------------------------
 # create instances of the RAND team class
-arch = Team("Architectural")
-energy = Team("Energy")
-code = Team("Code")
-facade = Team("Facade")
-forensics = Team("Forensics")
-mep = Team("MEP")
-structural = Team("Structural")
+arch_team = Team("Architectural")
+energy_team = Team("Energy") # already using 'energy' variable
+code_team = Team("Code")
+facade_team = Team("Facade")
+forensics_team = Team("Forensics")
+mep_team = Team("MEP")
+structural_team = Team("Structural")
 
 # create an array for all Team instances
-teams_array = [arch,
-               energy,
-               code,
-               facade,
-               forensics,
-               mep,
-               structural]
+teams_array = [arch_team,
+               energy_team,
+               code_team,
+               facade_team,
+               forensics_team,
+               mep_team,
+               structural_team]
 
 # print the randTeam tallies in a single function
 def team_tally( rand_team ):
@@ -415,16 +422,18 @@ def team_tally( rand_team ):
     print(format_double_digit.format(rand_team.rand_team_entries()),
           "/",
           rand_team.team_percentage(),
-          "\tfor",
+          tab,
+          "for",
           rand_team.label)
 
 # call the tally function for each instance in the array
 print("================================") 
-for teams in teams_array:
-    team_tally(teams)
+
+for team in teams_array:
+    team_tally(team)
 
 #-----------------------------
-# create instances of the CS team member classs
+# create instances of the CS team member class
 csCF = CS("CF", "FitzGerald")
 csNA = CS("NA", "Abreu")
 csBF = CS("BF", "Feldman")
@@ -443,25 +452,30 @@ def cs_tally( csr ):
     print(csr.cs_entries(),
           "/",
           csr.cs_percentage(),
-          "\tfor",
+          tab,
+          "for",
           csr.name)
     #print(csr.cs_entry_notes())
     print("--------------------------------")
     print(format_double_digit.format(csr.cs_entry_status_draft()),
           "/",
           csr.cs_entry_percentage_draft(),
+          tab,
           drafted_text)
     print(format_double_digit.format(csr.cs_entry_status_need()),
           "/",
           csr.cs_entry_percentage_need(),
+          tab,
           needing_input_text)
     print(format_double_digit.format(csr.cs_entry_status_final()),
           "/",
           csr.cs_entry_percentage_final(),
+          tab,
           finalized_text)
     print(format_double_digit.format(csr.cs_entry_status_misc()),
           "/",
           csr.cs_entry_percentage_misc(),
+          tab,
           uncategorized_text)
 
 # call the tally function for each instance in the array

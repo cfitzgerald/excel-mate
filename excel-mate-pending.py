@@ -33,11 +33,9 @@ PENDING JOBS
 import xlrd
 
 # set the file location; use double \\
-# home
-pathHome = "Z:\\Documents\\dev\\RAND\\xlrd-test\\prolog.xls"
-# RAND test
-pathWorkTEST = "\\\\data\\userdata$\\cfitzgerald\\Desktop\\dev\\xlrd-test\\prolog.xls"
-# RAND
+# work test
+pathWorkTEST = "\\\\data\\userdata$\\cfitzgerald\\Desktop\\dev\\excel-mate\\prolog.xls"
+# work
 pathWork = "\\\\data\\Proposal Log\\Proposal Log 1-1-14 - present.xls"
 # open the Excel file (.xls only)
 workbook = xlrd.open_workbook(pathHome, formatting_info=True)
